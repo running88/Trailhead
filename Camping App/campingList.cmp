@@ -1,0 +1,107 @@
+<aura:component controller="CampingListController">
+    <aura:attribute name="newItem" type="Camping_Item__c"
+                    default="{'sobjectType' : 'Camping_Item__c',
+                             'Name' : '',
+                             'Price__c' : 0,
+                             'Quantity__c' : 0,
+                             'Packed__c' : false}"/>
+    <aura:attribute name="items" type="Camping_Item__c[]"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <!-- Page Header -->
+    <div class="slds-page-header">
+    	<div class="slds-grid">
+        	<div class="slds-col">
+            	<h1 class="slds-text-heading--medium">Camping Item</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+    <!-- Camping Item Form -->
+    <div class="slds-col slds-col-padded slds-p-top--large">
+    	<div aria-labelledby="newcampingitem">
+        	<!-- Boxed Area -->
+            <fieldset class="slds-box slds-theme--default slds-container--small">
+                <legend id="newcampingitem" class="slds-text-heading--small slds-p-vertical--medium">
+                	Add Camping Item
+                </legend>
+                <!-- Create new Camping Item -->
+                <form class="slds-form--stacked">
+                	<div class="slds-form-element slds-is-required">
+                    	<div class="slds-form-element__control">
+                            <ui:inputText aura:id="citemname"
+                                          label="Camping Item Name"
+                                          class="slds-input"
+                                          labelClass="slds-form-element__label"
+                                          value="{!v.newItem.Name}"
+                                          required="true"/>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                    	<div class="slds-form-element__control">
+                            <ui:inputNumber aura:id="citemquantity"
+                                          label="Quantity"
+                                          class="slds-input"
+                                          labelClass="slds-form-element__label"
+                                          value="{!v.newItem.Quantity__c}"/>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                    	<div class="slds-form-element__control">
+                            <ui:inputCurrency aura:id="citemprice"
+                                          label="Price"
+                                          class="slds-input"
+                                          labelClass="slds-form-element__label"
+                                          value="{!v.newItem.Price__c}"/>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                        <ui:inputCheckbox aura:id="citempacked"
+                                          label="Packed"
+                                          class="slds-checkbox"
+                                          labelClass="slds-form-element__label"
+                                          value="{!v.newItem.Packed__c}"/>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                        <ui:button label="Create Expense"
+                                   class="slds-button slds-button--brand"
+                                   press="{!c.clickCreateNewItem}"/>
+                    </div>
+                </form>
+                <!-- /Create new Camping Item --> 
+            </fieldset>
+            <!-- /Boxed Area -->
+        </div>
+    </div>
+    <!-- /Camping Item Form -->
+    
+    <!-- CampingListItem -->
+    
+    <div class="slds-card slds-p-top--medium">
+    	<header class="slds-card__header">
+        	<h3 class="slds-text-heading--small">Camping Items</h3>
+        </header>
+        
+        
+        <section class="slds-card--body">
+        	<div id="list" class="row">
+            	<aura:iteration items="{!v.items}" var="item">
+                    <c:campingListItem item="{!item}"/>
+                    <hr/>
+                </aura:iteration>
+            </div>
+        </section>
+    </div>
+    
+    <!-- /CampingListItem -->
+    
+    <!--<ol>
+    	<li>Bug Spray</li>
+        <li>Bear Repellent</li>
+        <li>Goat Food</li>
+    </ol>-->
+</aura:component>
