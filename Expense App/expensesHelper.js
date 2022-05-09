@@ -6,7 +6,7 @@
             "expense": expense
         });
         action.setCallback(this,function(response){
-            var state = reposnse.getState();
+            var state = response.getState();
             if(component.isValid() && state === "SUCCESS"){
                 var expenses = component.get("v.expense");
                 expenses.push(response.getReturnValue());
@@ -29,10 +29,10 @@
             nameField.set("v.errors",null);
         
         //validate amount
-        var amtField = component.find("expamount");
+        var amtField = component.find("amount");
         var amt = amtField.get("v.value");
         if($A.util.isEmpty(amt) || isNaN(amt) || amt<=0.0){
-            validExpense = true;
+            validExpense = false;
             amtField.set("v.errors",[{
                 message: "Enter expense amount"
             }]);
